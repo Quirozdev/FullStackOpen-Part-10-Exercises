@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import Text from '../Text';
-import { suffixThousandNumbers } from '../../utils';
+import { suffixThousandNumbers } from '../../utils/utils';
 
 const CountComponent = ({ count, text, style, ...props }) => {
   return (
