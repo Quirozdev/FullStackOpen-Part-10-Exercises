@@ -3,6 +3,8 @@ import Constants from 'expo-constants';
 import Text from './Text';
 import theme from '../theme';
 import { Link } from 'react-router-native';
+import { useQuery } from '@apollo/client';
+import { ME } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,11 +28,23 @@ const AppBarTab = ({ tabName, linkTo }) => {
 };
 
 const AppBar = () => {
+  const { loading, data } = useQuery(ME);
+
+  if (loading) {
+    return null;
+  }
+
+  const loggedInUser = data.me;
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView} horizontal>
         <AppBarTab tabName="Repositories" linkTo={'/'} />
-        <AppBarTab tabName="Sign in" linkTo={'/sign-in'} />
+        {loggedInUser ? (
+          <AppBarTab tabName="Sign out" linkTo={'/sign-out'} />
+        ) : (
+          <AppBarTab tabName="Sign in" linkTo={'/sign-in'} />
+        )}
       </ScrollView>
     </View>
   );
