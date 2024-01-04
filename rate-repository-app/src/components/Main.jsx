@@ -6,6 +6,7 @@ import theme from '../theme';
 import { Navigate, Route, Routes } from 'react-router-native';
 import SignIn from './SignIn';
 import SignOut from './SignOut';
+import { RepositoryContainer } from './RepositoryItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +22,7 @@ const Main = () => {
       <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} />
+        <Route path="/:repositoryId" element={<RepositoryContainer />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-out" element={<SignOut />} />
         <Route path="*" element={<Navigate to={'/'} replace />} />

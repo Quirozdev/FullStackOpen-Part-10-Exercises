@@ -11,5 +11,6 @@ export const CORE_REPOSITORY_FIELDS = gql`
     ratingAverage
     reviewCount
     stargazersCount
+    url
   }
 `;
