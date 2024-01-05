@@ -1,10 +1,12 @@
-import { Linking, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, Linking, Pressable, StyleSheet, View } from 'react-native';
 import theme from '../../theme';
 import RepositoryStatistics from './RepositoryStatistics';
 import RepositoryInfo from './RepositoryInfo';
 import Text from '../Text';
 import { useNavigate, useParams } from 'react-router-native';
 import useRepository from '../../hooks/useRepository';
+import ReviewItem from '../Reviews';
+import ItemSeparator from '../ItemSeparator';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,18 +32,31 @@ export const RepositoryContainer = () => {
     return <Text>Loading...</Text>;
   }
 
+  const reviews = repository.reviews.edges.map((edge) => edge.node);
+
+  console.log(reviews);
+
   return (
-    <RepositoryItem
-      description={repository.description}
-      forksCount={repository.forksCount}
-      fullName={repository.fullName}
-      language={repository.language}
-      ownerAvatarUrl={repository.ownerAvatarUrl}
-      ratingAverage={repository.ratingAverage}
-      reviewCount={repository.reviewCount}
-      stargazersCount={repository.stargazersCount}
-      url={repository.url}
-      showGithubLink={true}
+    <FlatList
+      data={reviews}
+      renderItem={({ item }) => <ReviewItem {...item} />}
+      keyExtractor={({ id }) => id}
+      ItemSeparatorComponent={ItemSeparator}
+      ListHeaderComponent={() => (
+        <RepositoryItem
+          description={repository.description}
+          forksCount={repository.forksCount}
+          fullName={repository.fullName}
+          language={repository.language}
+          ownerAvatarUrl={repository.ownerAvatarUrl}
+          ratingAverage={repository.ratingAverage}
+          reviewCount={repository.reviewCount}
+          stargazersCount={repository.stargazersCount}
+          url={repository.url}
+          showGithubLink={true}
+        />
+      )}
+      ListHeaderComponentStyle={{ marginBottom: 10 }}
     />
   );
 };
