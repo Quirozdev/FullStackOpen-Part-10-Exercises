@@ -34,8 +34,6 @@ export const RepositoryContainer = () => {
 
   const reviews = repository.reviews.edges.map((edge) => edge.node);
 
-  console.log(reviews);
-
   return (
     <FlatList
       data={reviews}
