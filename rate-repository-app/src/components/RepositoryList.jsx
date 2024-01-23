@@ -21,8 +21,27 @@ export const RepositoryListContainer = ({ repositories }) => {
   );
 };
 
-const RepositoryList = () => {
-  const { repositories, loading } = useRepositories();
+const RepositoryList = ({ orderPrinciple }) => {
+  const orderParams = {
+    LATEST: {
+      order: 'CREATED_AT',
+      direction: 'DESC',
+    },
+    LOWEST_RATED: {
+      order: 'RATING_AVERAGE',
+      direction: 'ASC',
+    },
+    HIGHEST_RATED: {
+      order: 'RATING_AVERAGE',
+      direction: 'DESC',
+    },
+  };
+
+  const { order, direction } = orderParams[orderPrinciple];
+  const { repositories, loading } = useRepositories({
+    order,
+    direction,
+  });
 
   if (loading) {
     return <Text>Loading...</Text>;

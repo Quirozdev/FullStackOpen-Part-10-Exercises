@@ -1,5 +1,4 @@
 import { StyleSheet, View } from 'react-native';
-import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import { StatusBar } from 'expo-status-bar';
 import theme from '../theme';
@@ -9,6 +8,7 @@ import SignOut from './SignOut';
 import { RepositoryContainer } from './RepositoryItem';
 import CreateReview from './ReviewForm';
 import SignUp from './SignUp';
+import RepositoryPage from './RepositoryPage';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +23,7 @@ const Main = () => {
     <View style={styles.container}>
       <AppBar />
       <Routes>
-        <Route path="/" element={<RepositoryList />} />
+        <Route path="/" element={<RepositoryPage />} />
         <Route path="/:repositoryId" element={<RepositoryContainer />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
