@@ -43,6 +43,7 @@ const AppBar = () => {
         {loggedInUser ? (
           <>
             <AppBarTab tabName="Create a review" linkTo={'/create-review'} />
+            <AppBarTab tabName="My reviews" linkTo={'/my-reviews'} />
             <AppBarTab tabName="Sign out" linkTo={'/sign-out'} />
           </>
         ) : (
