@@ -21,7 +21,7 @@ export const RepositoryListContainer = ({ repositories }) => {
   );
 };
 
-const RepositoryList = ({ orderPrinciple }) => {
+const RepositoryList = ({ orderPrinciple, searchQuery }) => {
   const orderParams = {
     LATEST: {
       order: 'CREATED_AT',
@@ -41,6 +41,7 @@ const RepositoryList = ({ orderPrinciple }) => {
   const { repositories, loading } = useRepositories({
     order,
     direction,
+    searchQuery,
   });
 
   if (loading) {
