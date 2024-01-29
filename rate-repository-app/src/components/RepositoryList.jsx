@@ -4,7 +4,7 @@ import useRepositories from '../hooks/useRepositories';
 import Text from './Text';
 import ItemSeparator from './ItemSeparator';
 
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({ repositories, onEndReach }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -17,6 +17,8 @@ export const RepositoryListContainer = ({ repositories }) => {
         <PressableRepositoryItem {...item}></PressableRepositoryItem>
       )}
       keyExtractor={(item) => item.id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -38,17 +40,26 @@ const RepositoryList = ({ orderPrinciple, searchQuery }) => {
   };
 
   const { order, direction } = orderParams[orderPrinciple];
-  const { repositories, loading } = useRepositories({
+  const { repositories, loading, fetchMore } = useRepositories({
     order,
     direction,
     searchQuery,
   });
 
+  const onEndReach = () => {
+    fetchMore();
+  };
+
   if (loading) {
     return <Text>Loading...</Text>;
   }
 
-  return <RepositoryListContainer repositories={repositories} />;
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      onEndReach={onEndReach}
+    />
+  );
 };
 
 export default RepositoryList;

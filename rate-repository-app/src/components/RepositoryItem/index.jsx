@@ -26,7 +26,11 @@ const styles = StyleSheet.create({
 
 export const RepositoryContainer = () => {
   const { repositoryId } = useParams();
-  const { repository, loading } = useRepository(repositoryId);
+  const { repository, loading, fetchMore } = useRepository(repositoryId, 3);
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -39,6 +43,8 @@ export const RepositoryContainer = () => {
       data={reviews}
       renderItem={({ item }) => <ReviewItem {...item} />}
       keyExtractor={({ id }) => id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
       ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={() => (
         <RepositoryItem
